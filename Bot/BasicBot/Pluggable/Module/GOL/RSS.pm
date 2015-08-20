@@ -35,7 +35,7 @@ package Bot::BasicBot::Pluggable::Module::GOL::RSS {
         my $line = sprintf "[NEWS] %s %s - %s",
                            $post->{title}, $post->{link}, $datetime;
         if ($line ne $self->{lastlink}) {
-            $self->say({ channel => "#golbottest", body => $line });
+            $self->say({ channel => "#gamingonlinux", body => $line });
             $self->{lastlink} = $line;
             say "Reporting $line";
             $self->set("GOL_RSS_lastlink" => $line);

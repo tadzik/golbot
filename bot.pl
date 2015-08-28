@@ -1,4 +1,4 @@
-use 5.020;
+use 5.018;
 use lib 'local/lib/perl5';
 use warnings;
 
@@ -6,7 +6,7 @@ use Bot::BasicBot::Pluggable;
 
 my $bot = Bot::BasicBot::Pluggable->new(
     server => "irc.freenode.net",
-    channels => ["#golbottest"],
+    channels => ["#gamingonlinux"],
     nick => 'GolBot',
 );
 

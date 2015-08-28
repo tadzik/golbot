@@ -11,7 +11,7 @@ my $bot = Bot::BasicBot::Pluggable->new(
 );
 
 $bot->load('Seen');
-$bot->load('Title');
+$bot->load('WebTitle');
 $bot->load('Log');
 $bot->load('Substitution');
 $bot->load('GOL::RSS');

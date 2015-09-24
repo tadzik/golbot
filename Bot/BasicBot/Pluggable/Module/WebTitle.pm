@@ -23,7 +23,7 @@ package Bot::BasicBot::Pluggable::Module::WebTitle {
             my $title;
             if (timeout_call(3, sub { $title = title("$cand") })) {
                 next;
-            } else {
+            } elsif ($title ne '') {
                 $reply .= "[ $title ] ";
             }
         }

@@ -28,9 +28,7 @@ package Bot::BasicBot::Pluggable::Module::WebTitle {
             }
         }
 
-        if ($reply) { $self->reply($msg, $reply) }
-
-        return;
+        return $reply;
     }
 }
 

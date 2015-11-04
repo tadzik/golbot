@@ -16,6 +16,7 @@ my $bot = Bot::BasicBot::Pluggable->new(
 
 $bot->load('Seen');
 $bot->load('GOL::Steam');
+$bot->load('GOL::SteamSearch');
 $bot->load('WebTitle');
 $bot->load('Log');
 $bot->load('Substitution');

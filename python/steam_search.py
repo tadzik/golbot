@@ -21,6 +21,7 @@ Example:
 '''
 
 
+from __future__ import division
 import signal
 import sys
 

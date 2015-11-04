@@ -13,7 +13,7 @@ Usage:
     python steam.py '<input>'
 '''
 
-
+from __future__ import division
 import re
 import sys
 

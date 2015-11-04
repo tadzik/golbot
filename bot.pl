@@ -10,8 +10,8 @@ use Bot::BasicBot::Pluggable;
 
 my $bot = Bot::BasicBot::Pluggable->new(
     server => "irc.freenode.net",
-    channels => ["#golbottest"],
-    nick => 'GolBotBeta',
+    channels => ["#gamingonlinux"],
+    nick => 'GolBot',
 );
 
 $bot->load('Seen');

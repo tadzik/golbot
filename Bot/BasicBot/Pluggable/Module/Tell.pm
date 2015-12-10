@@ -45,7 +45,7 @@ package Bot::BasicBot::Pluggable::Module::Tell {
             if ($addressed or $1) {
                 $self->reply($msg, "Ok, I'll pass your message to $3");
                 $self->archive("tell_$3$channel" =>
-                    "$nick wanted to $2 you \"$4\" "
+                    "$3: $nick wanted to $2 you \"$4\" "
                     . strftime("(%F %R)", localtime));
                 #say "Did shit";
             } else {

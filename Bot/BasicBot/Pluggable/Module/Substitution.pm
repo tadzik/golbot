@@ -12,7 +12,7 @@ package Bot::BasicBot::Pluggable::Module::Substitution {
         my ($self, $msg) = @_;
         my $nick = $msg->{who};
         my $channel = $msg->{channel};
-        if ($msg->{body} =~ m{s/([^/]+)/([^/]+)/?}) {
+        if ($msg->{body} =~ m{\bs/([^/]+)/([^/]+)/?}) {
             my ($pattern, $replacement) = ($1, $2);
             my $orig = $self->get("sub_$nick$channel");
             if ($orig) {

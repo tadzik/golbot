@@ -9,7 +9,7 @@ package Bot::BasicBot::Pluggable::Module::GOL::RSS {
     sub init {
         my ($self) = @_;
         $self->{lastcheck} = 0;
-        $self->{lastlink} = $self->get("GOL_RSS_lastlink");
+        $self->{lasttitle} = $self->get("GOL_RSS_lasttitle");
     }
 
     sub help {
@@ -29,16 +29,23 @@ package Bot::BasicBot::Pluggable::Module::GOL::RSS {
         my $rss = LWP::Simple::get(
             'https://www.gamingonlinux.com/article_rss.php');
         my $parsed = XML::RSS::LibXML->new->parse($rss);
-        my $post = $parsed->items->[0];
-        my $datetime = $post->{pubDate};
-        $datetime =~ s/ \+\d+$//;
-        my $line = sprintf "[NEWS] %s %s - %s",
-                           $post->{title}, $post->{link}, $datetime;
-        if ($line ne $self->{lastlink}) {
-            $self->say({ channel => "#gamingonlinux", body => $line });
-            $self->{lastlink} = $line;
+        my @news;
+        my $newest;
+        for my $post (@{$parsed->items}) {
+            $newest //= $post->{title};
+            last if $post->{title} eq $self->{lasttitle};
+            my $datetime = $post->{pubDate};
+            $datetime =~ s/ \+\d+$//;
+            my $line = sprintf "[NEWS] %s %s - %s",
+                               $post->{title}, $post->{link}, $datetime;
+            push @news, $line;
+        }
+        if (@news) {
+            my $line = join "\n", @news;
             say "Reporting $line";
-            $self->set("GOL_RSS_lastlink" => $line);
+            $self->say({ channel => "#gamingonlinux", body => $line });
+            $self->set("GOL_RSS_lasttitle" =>
+                $self->{lasttitle} = $newest);
         } else {
             say "Nothing new";
         }

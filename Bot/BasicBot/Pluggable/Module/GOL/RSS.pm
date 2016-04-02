@@ -9,7 +9,7 @@ package Bot::BasicBot::Pluggable::Module::GOL::RSS {
     sub init {
         my ($self) = @_;
         $self->{lastcheck} = 0;
-        $self->{lasttitle} = $self->get("GOL_RSS_lasttitle");
+        $self->{lastpubdate} = $self->get("GOL_RSS_lastpubdate");
     }
 
     sub help {
@@ -32,10 +32,10 @@ package Bot::BasicBot::Pluggable::Module::GOL::RSS {
         my @news;
         my $newest;
         for my $post (@{$parsed->items}) {
-            $newest //= $post->{title};
-            last if $post->{title} eq $self->{lasttitle};
             my $datetime = $post->{pubDate};
             $datetime =~ s/ \+\d+$//;
+            $newest //= $datetime;
+            last if $datetime eq $self->{lastpubdate};
             my $line = sprintf "[NEWS] %s %s - %s",
                                $post->{title}, $post->{link}, $datetime;
             push @news, $line;
@@ -44,8 +44,8 @@ package Bot::BasicBot::Pluggable::Module::GOL::RSS {
             my $line = join "\n", @news;
             say "Reporting $line";
             $self->say({ channel => "#gamingonlinux", body => $line });
-            $self->set("GOL_RSS_lasttitle" =>
-                $self->{lasttitle} = $newest);
+            $self->set("GOL_RSS_lastpubdate" =>
+                $self->{lastpubdate} = $newest);
         } else {
             say "Nothing new";
         }

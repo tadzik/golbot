@@ -16,7 +16,11 @@ package Bot::BasicBot::Pluggable::Module::Substitution {
             my ($pattern, $replacement) = ($1, $2);
             my $orig = $self->get("sub_$nick$channel");
             if ($orig) {
-                my $new = $orig =~ s/$pattern/$replacement/r;
+                if ($msg->{body} =~ \bs/[^/]+/[^/]+/g) { 
+                    my $new = $orig =~ s/$pattern/$replacement/g;
+                } else {
+                    my $new = $orig =~ s/$pattern/$replacement/r;
+                }
                 if ($new ne $orig) {
                     $self->set("sub_$nick$channel" => $new);
                     return "$nick meant to say: $new";

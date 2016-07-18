@@ -39,7 +39,7 @@ package Bot::BasicBot::Pluggable::Module::Tell {
         if ($msg->{body} =~ m{
             (\! | \.)?    # the way we may have been summoned, $1
             (tell|ask)\s+ # the verb, remembered, $2
-            (\w+)\s+      # nickname of the target, $3
+            (\S+)\s+      # nickname of the target, $3
             (.+)          # the text to remember, $4
         }ix) {
             if ($addressed or $1) {

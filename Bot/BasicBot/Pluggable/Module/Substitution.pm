@@ -17,7 +17,7 @@ package Bot::BasicBot::Pluggable::Module::Substitution {
             my $orig = $self->get("sub_$nick$channel");
             if ($orig) {
                 if ($msg->{body} =~ \bs/[^/]+/[^/]+/g) { 
-                    my $new = $orig =~ s/$pattern/$replacement/g;
+                    my $new = $orig =~ s/$pattern/$replacement/gr;
                 } else {
                     my $new = $orig =~ s/$pattern/$replacement/r;
                 }
